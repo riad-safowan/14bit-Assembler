@@ -1,0 +1,21 @@
+Addi $s1, $s2, 5
+Sub $s0, $s1, $s3
+Addi $s3, $s2, $s1
+Beq $s1, $s2, $s3
+Add $s1, $s0, $s3
+Addi $s1, $s2, 5
+Beq $s1, $s2, $s3
+Addi $s3, $s2, 12
+Sub $s0, $s1, $s3
+Beq $s1, $s2, $s3
+Addi $s3, $s2, 12
+Sub $s0, $s1, $s3
+Addi $s3, $s2, 14
+Beq $s1, $s2, $s3
+Slti $s1, $s2, 10
+Sub $s0, $s1, $s3
+
+
+
+
+
