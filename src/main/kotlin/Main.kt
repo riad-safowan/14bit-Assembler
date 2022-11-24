@@ -1,4 +1,6 @@
 import java.io.File
+import java.util.Scanner
+import java.util.concurrent.TimeUnit
 
 fun main() {
     println("Program Started\n")
@@ -16,12 +18,17 @@ fun main() {
     val hexCode = StringBuilder()
 
     var instructionCount = 0
+
     if (assemblyFile.isFile) {
+        TimeUnit.MILLISECONDS.sleep(500L)
         println("Loading Assembly code...")
+        TimeUnit.MILLISECONDS.sleep(1500L)
         assemblyFile.forEachLine {
             println(it)
         }
+        TimeUnit.MILLISECONDS.sleep(500L)
         println("\nGenerating Binary code...")
+        TimeUnit.MILLISECONDS.sleep(1500L)
         assemblyFile.forEachLine { instruction ->
             var startPos = 0
             for (i in instruction.indices) {
@@ -48,12 +55,17 @@ fun main() {
         }
         print(binCode)
         binaryFile.writeText(binCode.toString())
+        TimeUnit.MILLISECONDS.sleep(500L)
         println("Transferred Binary code to \"$machineBin\" file")
+        TimeUnit.MILLISECONDS.sleep(2000L)
         println("\nGenerating Hex code...")
+        TimeUnit.MILLISECONDS.sleep(1500L)
         print(hexCode)
         hexFile.writeText(hexCode.toString())
+        TimeUnit.MILLISECONDS.sleep(500L)
         println("Transferred Hex code to \"$machineHex\" file")
 
+        TimeUnit.MILLISECONDS.sleep(2000L)
         println(
             "\n$instructionCount ${if (instructionCount < 2) "line" else "lines"} of machine instruction" +
                     " ${if (instructionCount < 2) "has" else "have"} been generated."
@@ -61,6 +73,9 @@ fun main() {
     } else
         println("Input file $assembly dose not exist in current directory.")
 
+    val reader = Scanner(System.`in`)
+    println("Press Enter to Exit")
+    reader.nextLine()
 }
 
 fun String.deductComma(): String {
