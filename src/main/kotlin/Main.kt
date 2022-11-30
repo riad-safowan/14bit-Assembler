@@ -21,9 +21,6 @@ fun main() {
     var instructionCount = 0
 
     if (assemblyFile.isFile) {
-//        TimeUnit.MILLISECONDS.sleep(500L)
-        println("Loading Assembly code...")
-//        TimeUnit.MILLISECONDS.sleep(1500L)
         var line = 0
         assemblyFile.forEachLine { instruction ->
             println(instruction)
@@ -39,9 +36,6 @@ fun main() {
             line++
         }
 
-//        TimeUnit.MILLISECONDS.sleep(500L)
-        println("\nGenerating Binary code...")
-//        TimeUnit.MILLISECONDS.sleep(1500L)
         assemblyFile.forEachLine { instruction ->
             when (getFormat(instruction)) {
                 'R', 'I' -> {
@@ -58,20 +52,10 @@ fun main() {
             }
             if (instruction.trim().isNotEmpty()) instructionCount++
         }
-        print(binCode)
         binaryFile.writeText(binCode.toString())
-//        TimeUnit.MILLISECONDS.sleep(500L)
-        println("Transferred Binary code to \"$machineBin\" file")
-//        TimeUnit.MILLISECONDS.sleep(2000L)
-        println("\nGenerating Hex code...")
         generateHexCode(binCode.toString())
-//        TimeUnit.MILLISECONDS.sleep(1500L)
-        print(hexCode)
         hexFile.writeText(hexCode.toString())
-//        TimeUnit.MILLISECONDS.sleep(500L)
-        println("Transferred Hex code to \"$machineHex\" file")
 
-//        TimeUnit.MILLISECONDS.sleep(2000L)
         println(
             "\n$instructionCount ${if (instructionCount < 2) "line" else "lines"} of machine instruction" +
                     " ${if (instructionCount < 2) "has" else "have"} been generated."
@@ -94,12 +78,16 @@ fun generateHexCode(bin: String) {
 }
 
 fun generateBinSeq(instruction: String) {
+
     var startPos = 0
     for (i in instruction.indices) {
         if (instruction[i] == ' ') {
             val subStr = instruction.substring(startPos, i).deductCommaOrColon()
             startPos = i + 1
             binCode.append(map[subStr])
+            if (subStr == "J"){
+                binCode.append("000000")
+            }
         }
         if (i == instruction.length - 1) {
             val subStr = instruction.substring(startPos, i + 1)
@@ -145,7 +133,7 @@ fun decimalTo4bitBinary(d: Int): String {
 
 fun instructionFormat(s: String) = when (s) {
     "Add", "Sub", "AND", "Sll", "Slt" -> 'R'
-    "Addi", "Beq", "Slti", "J", "Sw", "Lw" -> 'I'
+    "Addi", "Beq", "Slti","J" , "Sw", "Lw" -> 'I'
     else -> 'L'
 }
 
