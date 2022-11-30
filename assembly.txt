@@ -1,12 +1,11 @@
-Add $s1, $s2, 5
+L2: Add $s1, $s2, $s1
+Beq $s1, $s3, L1
 Sub $s0, $s1, $s3
-Addi $s3, $s2, $s1
-Beq $s1, $s2, $s3
+Addi $s3, $s2, 5
 Add $s1, $s0, $s3
-Add $s1, $s2, 5
-Beq $s1, $s2, $s3
-Addi $s3, $s2, $s1
-Sub $s0, $s1, $s3
-Addi $s3, $s2, $s1
-Beq $s1, $s2, $s3
-Slti $s1, $s2, $s3
+Addi $s1, $s2, 5
+Addi $s3, $s2, 9
+L1: Sub $s0, $s1, $s3
+Addi $s3, $s2, 2
+Slti $s1, $s2, 3
+Beq $s1, $s3, L2
