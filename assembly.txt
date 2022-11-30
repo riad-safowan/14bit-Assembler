@@ -1,4 +1,4 @@
-L2: Add $s1, $s2, $s1
+L2: Lw $s1, $s2, 15
 Beq $s1, $s3, L1
 Sub $s0, $s1, $s3
 Addi $s3, $s2, 5
@@ -9,3 +9,5 @@ L1: Sub $s0, $s1, $s3
 Addi $s3, $s2, 2
 Slti $s1, $s2, 3
 Beq $s1, $s3, L2
+Sll $t0, $t1, 1
+Sll $t0, $t1, 0

@@ -1,6 +1,5 @@
 import java.io.File
 import java.util.Scanner
-import java.util.concurrent.TimeUnit
 
 val map = loadMap()
 val binCode = StringBuilder()
@@ -22,9 +21,9 @@ fun main() {
     var instructionCount = 0
 
     if (assemblyFile.isFile) {
-        TimeUnit.MILLISECONDS.sleep(500L)
+//        TimeUnit.MILLISECONDS.sleep(500L)
         println("Loading Assembly code...")
-        TimeUnit.MILLISECONDS.sleep(1500L)
+//        TimeUnit.MILLISECONDS.sleep(1500L)
         var line = 0
         assemblyFile.forEachLine { instruction ->
             println(instruction)
@@ -40,9 +39,9 @@ fun main() {
             line++
         }
 
-        TimeUnit.MILLISECONDS.sleep(500L)
+//        TimeUnit.MILLISECONDS.sleep(500L)
         println("\nGenerating Binary code...")
-        TimeUnit.MILLISECONDS.sleep(1500L)
+//        TimeUnit.MILLISECONDS.sleep(1500L)
         assemblyFile.forEachLine { instruction ->
             when (getFormat(instruction)) {
                 'R', 'I' -> {
@@ -61,18 +60,18 @@ fun main() {
         }
         print(binCode)
         binaryFile.writeText(binCode.toString())
-        TimeUnit.MILLISECONDS.sleep(500L)
+//        TimeUnit.MILLISECONDS.sleep(500L)
         println("Transferred Binary code to \"$machineBin\" file")
-        TimeUnit.MILLISECONDS.sleep(2000L)
+//        TimeUnit.MILLISECONDS.sleep(2000L)
         println("\nGenerating Hex code...")
         generateHexCode(binCode.toString())
-        TimeUnit.MILLISECONDS.sleep(1500L)
+//        TimeUnit.MILLISECONDS.sleep(1500L)
         print(hexCode)
         hexFile.writeText(hexCode.toString())
-        TimeUnit.MILLISECONDS.sleep(500L)
+//        TimeUnit.MILLISECONDS.sleep(500L)
         println("Transferred Hex code to \"$machineHex\" file")
 
-        TimeUnit.MILLISECONDS.sleep(2000L)
+//        TimeUnit.MILLISECONDS.sleep(2000L)
         println(
             "\n$instructionCount ${if (instructionCount < 2) "line" else "lines"} of machine instruction" +
                     " ${if (instructionCount < 2) "has" else "have"} been generated."
@@ -111,7 +110,9 @@ fun generateBinSeq(instruction: String) {
             } catch (e: Exception) {
                 if (!map[subStr].isNullOrEmpty()) {
                     binCode.append(map[subStr] + "0\n")
-                } else binCode.append(jumpLocations[subStr]?.let { decimalTo4bitBinary(it) + "\n" })
+                } else {
+                    binCode.append(jumpLocations[subStr]?.let { decimalTo4bitBinary(it) + "\n" })
+                }
             }
         }
     }
